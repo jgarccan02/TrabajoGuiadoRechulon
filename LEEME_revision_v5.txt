@@ -1,0 +1,46 @@
+EKF SUPERMERCADO - V5: COMPARACION CORRECTA DE ODOMETRIA
+========================================================
+
+MOTIVO:
+En el inicio, apoloGetOdometry(robot) puede devolver la misma pose Xini
+que apoloGetLocationMRobot(robot) y, sin embargo, los incrementos XY
+pueden estar expresados en un marco de ejes distinto.
+
+En la imagen aportada, la curva de odometria y la real tienen radios
+similares y comparten el inicio, pero sus centros estan desplazados
+aproximadamente 0.8 m en X y 0.8 m en Y, patron compatible con giro
+~90 grados de los incrementos odometricos.
+
+ERROR DE V4:
+R_referencia = R(Xini(3)-odo_referencia(3)) es la identidad si ambos
+angulos iniciales coinciden; no corrige un posible desajuste de ejes
+entre los incrementos XY crudos y el mapa.
+
+CAMBIO DE V5:
+- Se obtiene dd = |delta XY| con el signo de la velocidad comandada,
+  dth = cambio angular odometrico con normalizacion.
+- Se integra Xodo desde Xini usando exclusivamente dd y dth:
+    x += dd*cos(theta + dth/2)
+    y += dd*sin(theta + dth/2)
+    theta += dth
+- Xodometria y el RMSE de odometria se calculan con Xodo.
+- La consola muestra el angulo del primer delta XY crudo y el rumbo
+  inicial de avance previsto; puede revelar el giro de ejes.
+- No se cambian las formulas ni los parametros del EKF o el filtro NIS.
+
+IMPORTANTE:
+La curva verde ahora es ODOMETRIA INTEGRADA (dead reckoning): una
+estimacion construida sin balizas a partir de los incrementos que Apolo
+mide. No es la posicion (x,y) cruda que entrega apoloGetOdometry.
+
+USO:
+1. Abre el supermercado_apolo.xml de este paquete en Apolo.
+2. Coloca los archivos .m de esta carpeta en una carpeta nueva del path.
+3. Ejecuta prueba_integracion_odometria_sin_apolo para comprobar el caso
+   de ejes rotados en un ejemplo sintetico.
+4. Ejecuta kalman_supermercado_corregido.
+5. Revisa la diferencia angular del primer paso, RMSE EKF/odo y balizas
+   detectadas/usadas/rechazadas.
+
+El comportamiento de las funciones de Apolo no ha sido verificado por
+este paquete en una ejecucion real de MATLAB+Apolo.

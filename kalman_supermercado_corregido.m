@@ -1,11 +1,14 @@
+close all;clc;clear all
 %% EKF en el supermercado con Apolo
 % Antes de ejecutar:
-%   1. Abrir supermercado_apolo_v11.xml en Apolo.
+%   1. Abrir supermercado_apolo.xml en Apolo.
 %   2. Tener en el path de MATLAB la carpeta con las funciones apolo*.m que vienen con Apolo.
-%   3. ekf_update.m en esta misma carpeta.
+%   3. ekf_update_corregido.m en esta misma carpeta.
 %
 % Apolo mueve el robot, genera la odometria (con su ruido) y mide las balizas.
-% REVISION v3: se corrige el bug FILA/COLUMNA de odo_prev y el modulo de dd.
+% REVISION v5: trayectoria de odometria integrada desde Xini.
+% Evita asumir que las componentes x,y crudas estan en ejes globales.
+% No cambia la prediccion ni la correccion EKF.
 % MATLAB predice con la odometria y corrige con las balizas que ve el laser.
 % La pose real (apoloGetLocationMRobot) se usa SOLO para las graficas, nunca en el filtro.
 
@@ -138,6 +141,15 @@ assert(numel(odo_prev)>=3 && all(isfinite(odo_prev(1:3))), ...
     'Odometria inicial de Apolo invalida');
 odo_prev = odo_prev(1:3);
 
+% Referencia odometrica independiente del EKF: "dead reckoning".
+% Integramos distancia recorrida dd y giro dth, ambos obtenidos de Apolo,
+% desde la pose inicial Xini. NUNCA usamos balizas ni pose real en Xodo.
+% Esta forma no presupone que (odo(1),odo(2)) esten en ejes globales.
+odo_referencia = odo_prev;  % solo para comprobar el primer incremento
+Xodo = Xini;
+fprintf('Odometria inicial: [%.3f, %.3f, %.3f]; pose inicial: [%.3f, %.3f, %.3f]\n', ...
+        odo_referencia, Xini);
+
 for l = 1:nPasos
     % Apolo mueve el robot (comando del controlador / teleoperacion)
     choque = false;
@@ -185,8 +197,21 @@ for l = 1:nPasos
         error(['Incremento de odometria anomalo en paso %d: %.3f m. ' ...
                'Revisa apoloGetOdometry/reset y las dimensiones'],l,dd);
     end
+    if l == 1 && abs(dd)>1e-9
+        angOdoXY = atan2(deltaOdo(2),deltaOdo(1));
+        angEsperado = atan2(sin(Xini(3)+dth/2),cos(Xini(3)+dth/2));
+        diferenciaEjes = atan2(sin(angEsperado-angOdoXY),cos(angEsperado-angOdoXY));
+        fprintf(['Primer paso: rumbo de delta XY crudo=%.3f rad, ' ...
+                 'rumbo de avance global=%.3f rad, diferencia=%.3f rad (%.1f grados)\n'], ...
+                 angOdoXY,angEsperado,diferenciaEjes,diferenciaEjes*180/pi);
+    end
     odo_prev = odo;
     Uk = [dd; dth];
+
+    % SOLO odometria (sin balizas, sin EKF): integra sus propios incrementos.
+    theta_medio_odo = Xodo(3) + dth/2;
+    Xodo(1:2) = Xodo(1:2) + dd*[cos(theta_medio_odo); sin(theta_medio_odo)];
+    Xodo(3) = atan2(sin(Xodo(3)+dth),cos(Xodo(3)+dth));
 
     %Nuevo ciclo k-1 = k
     Xk_1 = Xk;
@@ -254,7 +279,9 @@ for l = 1:nPasos
     Xreal(:,l)      = [p(1); p(2); p(4)];
     Xestimado(:,l)  = Xk;
     Xpredicho(:,l)  = X_k;
-    Xodometria(:,l) = odo(1:3);
+    % Trayectoria odometrica independiente, expresada en marco global
+    % a partir de Xini. No contiene ninguna correccion con balizas.
+    Xodometria(:,l) = Xodo;
     Pacumulado(:,l) = diag(Pk);
     nVistas(l)      = info.nDetectadas;
     nUsadas(l)      = info.nUsadas;
@@ -269,7 +296,12 @@ obst = [ 2.65  3.39 11.30 14.65;   5.90  6.64 11.30 14.65;   9.15  9.89 11.30 14
          3.85  5.35  2.45  3.19;  10.65 12.15  2.45  3.19 ];
 
 figure(1);
-subplot(2,2,1); hold on; axis equal; axis([0 16 0 17]);
+clf(1);  % Borra las trayectorias de ejecuciones anteriores
+
+subplot(2,2,1);
+hold on;
+axis equal;
+axis([0 16 0 17]); axis equal; axis([0 16 0 17]);
 for o = 1:size(obst,1)
     rectangle('Position', [obst(o,1) obst(o,3) obst(o,2)-obst(o,1) obst(o,4)-obst(o,3)], ...
               'FaceColor', [0.85 0.85 0.85], 'EdgeColor', [0.5 0.5 0.5]);
@@ -278,7 +310,7 @@ hR = plot(Xreal(1,:), Xreal(2,:), '.k');
 hE = plot(Xestimado(1,:), Xestimado(2,:), '.r');
 hO = plot(Xodometria(1,:), Xodometria(2,:), ':', 'Color', [0 0.5 0]);
 hB = plot(B(:,1), B(:,2), 'sb', 'MarkerSize', 4);
-legend([hR hE hO hB], 'Movimiento real (Apolo)', 'EKF', 'Odometria', 'Balizas', ...
+legend([hR hE hO hB], 'Movimiento real (Apolo)', 'EKF', 'Odometria integrada', 'Balizas', ...
        'Location', 'southoutside');
 xlabel('X (m)'); ylabel('Y (m)');
 
