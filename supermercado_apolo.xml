@@ -1,0 +1,458 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <World>
+    <WorldInfo name="Supermercado con balizas - Apolo">
+      <RegisterNumber number="261116" />
+      <RegisterNumber number="261307" />
+      <RegisterNumber number="261510" />
+    </WorldInfo>
+    <!--PLANTA: 16 x 17 m. Entrada: pared sur (y=0), hueco de x=7 a x=9. Altura paredes: 3 m.-->
+    <!--Convencion: x de izquierda a derecha; y desde la entrada hacia el fondo; z altura desde el suelo. Metros.-->
+    <!--SUELO: una unica superficie 16 x 17 m en z=0.-->
+    <FaceSetPart name="SUPERMERCADO_SUELO" id="1">
+      <face>
+        <colour r="0.91" g="0.90" b="0.87" />
+        <vertex>
+          {0,0,0}
+          {16,0,0}
+          {16,17,0}
+          {0,17,0}
+        </vertex>
+      </face>
+    </FaceSetPart>
+    <!--PAREDES: superficies verticales sin espesor, 3 m de alto. Entrada en pared sur (y=0), hueco x=7..9.
+        Paredes en x=cte: vertices en plano local, orientacion {0,-1.5708,0} lleva x local a z global.
+        Paredes en y=cte: orientacion {1.5708,0,0} lleva y local a z global.
+        Si una pared se ve solo desde fuera, invertir el orden de sus vertices.-->
+    <FaceSetPart name="SUPERMERCADO_PAREDES" id="2">
+      <face>
+        <colour r="0.58" g="0.64" b="0.72" />
+        <vertex>
+          {0,0,0}
+          {3,0,0}
+          {3,17,0}
+          {0,17,0}
+        </vertex>
+        <orientation>{0,-1.5708,0}</orientation>
+        <position>{0,0,0}</position>
+      </face>
+      <face>
+        <colour r="0.58" g="0.64" b="0.72" />
+        <vertex>
+          {0,17,0}
+          {3,17,0}
+          {3,0,0}
+          {0,0,0}
+        </vertex>
+        <orientation>{0,-1.5708,0}</orientation>
+        <position>{16,0,0}</position>
+      </face>
+      <face>
+        <colour r="0.58" g="0.64" b="0.72" />
+        <vertex>
+          {0,3,0}
+          {16,3,0}
+          {16,0,0}
+          {0,0,0}
+        </vertex>
+        <orientation>{1.5708,0,0}</orientation>
+        <position>{0,17,0}</position>
+      </face>
+      <face>
+        <colour r="0.58" g="0.64" b="0.72" />
+        <vertex>
+          {0,0,0}
+          {7,0,0}
+          {7,3,0}
+          {0,3,0}
+        </vertex>
+        <orientation>{1.5708,0,0}</orientation>
+        <position>{0,0,0}</position>
+      </face>
+      <face>
+        <colour r="0.58" g="0.64" b="0.72" />
+        <vertex>
+          {0,0,0}
+          {7,0,0}
+          {7,3,0}
+          {0,3,0}
+        </vertex>
+        <orientation>{1.5708,0,0}</orientation>
+        <position>{9,0,0}</position>
+      </face>
+    </FaceSetPart>
+    <!--PRISMA_ESTANTERIA_EST_01_01: prisma 0.74 x 3.35 x 2 m, esquina SO en (2.65,11.3), base en el suelo-->
+    <PrismaticPart name="PRISMA_ESTANTERIA_EST_01_01" id="3" height="2">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {3.02,12.975,0}
+      </position>
+      <colour r="0.70" g="0.86" b="0.76"/>
+      <face>
+        <vertex>
+          {-0.37,-1.675,0}
+          {0.37,-1.675,0}
+          {0.37,1.675,0}
+          {-0.37,1.675,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <!--PRISMA_ESTANTERIA_EST_01_02: prisma 0.74 x 3.35 x 2 m, esquina SO en (5.9,11.3), base en el suelo-->
+    <PrismaticPart name="PRISMA_ESTANTERIA_EST_01_02" id="4" height="2">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {6.27,12.975,0}
+      </position>
+      <colour r="0.72" g="0.82" b="0.93"/>
+      <face>
+        <vertex>
+          {-0.37,-1.675,0}
+          {0.37,-1.675,0}
+          {0.37,1.675,0}
+          {-0.37,1.675,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <!--PRISMA_ESTANTERIA_EST_01_03: prisma 0.74 x 3.35 x 2 m, esquina SO en (9.15,11.3), base en el suelo-->
+    <PrismaticPart name="PRISMA_ESTANTERIA_EST_01_03" id="5" height="2">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {9.52,12.975,0}
+      </position>
+      <colour r="0.84" g="0.78" b="0.92"/>
+      <face>
+        <vertex>
+          {-0.37,-1.675,0}
+          {0.37,-1.675,0}
+          {0.37,1.675,0}
+          {-0.37,1.675,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <!--PRISMA_ESTANTERIA_EST_01_04: prisma 0.74 x 3.35 x 2 m, esquina SO en (12.4,11.3), base en el suelo-->
+    <PrismaticPart name="PRISMA_ESTANTERIA_EST_01_04" id="6" height="2">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {12.77,12.975,0}
+      </position>
+      <colour r="0.97" g="0.90" b="0.68"/>
+      <face>
+        <vertex>
+          {-0.37,-1.675,0}
+          {0.37,-1.675,0}
+          {0.37,1.675,0}
+          {-0.37,1.675,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <!--PRISMA_ESTANTERIA_EST_02_01: prisma 0.74 x 3.35 x 2 m, esquina SO en (2.65,6.2), base en el suelo-->
+    <PrismaticPart name="PRISMA_ESTANTERIA_EST_02_01" id="7" height="2">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {3.02,7.875,0}
+      </position>
+      <colour r="0.70" g="0.86" b="0.76"/>
+      <face>
+        <vertex>
+          {-0.37,-1.675,0}
+          {0.37,-1.675,0}
+          {0.37,1.675,0}
+          {-0.37,1.675,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <!--PRISMA_ESTANTERIA_EST_02_02: prisma 0.74 x 3.35 x 2 m, esquina SO en (5.9,6.2), base en el suelo-->
+    <PrismaticPart name="PRISMA_ESTANTERIA_EST_02_02" id="8" height="2">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {6.27,7.875,0}
+      </position>
+      <colour r="0.72" g="0.82" b="0.93"/>
+      <face>
+        <vertex>
+          {-0.37,-1.675,0}
+          {0.37,-1.675,0}
+          {0.37,1.675,0}
+          {-0.37,1.675,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <!--PRISMA_ESTANTERIA_EST_02_03: prisma 0.74 x 3.35 x 2 m, esquina SO en (9.15,6.2), base en el suelo-->
+    <PrismaticPart name="PRISMA_ESTANTERIA_EST_02_03" id="9" height="2">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {9.52,7.875,0}
+      </position>
+      <colour r="0.84" g="0.78" b="0.92"/>
+      <face>
+        <vertex>
+          {-0.37,-1.675,0}
+          {0.37,-1.675,0}
+          {0.37,1.675,0}
+          {-0.37,1.675,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <!--PRISMA_ESTANTERIA_EST_02_04: prisma 0.74 x 3.35 x 2 m, esquina SO en (12.4,6.2), base en el suelo-->
+    <PrismaticPart name="PRISMA_ESTANTERIA_EST_02_04" id="10" height="2">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {12.77,7.875,0}
+      </position>
+      <colour r="0.97" g="0.90" b="0.68"/>
+      <face>
+        <vertex>
+          {-0.37,-1.675,0}
+          {0.37,-1.675,0}
+          {0.37,1.675,0}
+          {-0.37,1.675,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <!--PASILLO TRANSVERSAL: franja despejada entre y=9.55 y y=11.30.-->
+    <!--ZONA LIBRE: delante de estanterias (y<6.20), a excepcion de cajas de cobro.-->
+    <!--PRISMA_CAJA_01: prisma 1.5 x 0.74 x 1.18 m, esquina SO en (3.85,2.45), base en el suelo-->
+    <PrismaticPart name="PRISMA_CAJA_01" id="11" height="1.18">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {4.6,2.82,0}
+      </position>
+      <colour r="0.96" g="0.70" b="0.66"/>
+      <face>
+        <vertex>
+          {-0.75,-0.37,0}
+          {0.75,-0.37,0}
+          {0.75,0.37,0}
+          {-0.75,0.37,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <!--PRISMA_CAJA_02: prisma 1.5 x 0.74 x 1.18 m, esquina SO en (10.65,2.45), base en el suelo-->
+    <PrismaticPart name="PRISMA_CAJA_02" id="12" height="1.18">
+      <orientation>
+        {0,0,0}
+      </orientation>
+      <position>
+        {11.4,2.82,0}
+      </position>
+      <colour r="0.96" g="0.70" b="0.66"/>
+      <face>
+        <vertex>
+          {-0.75,-0.37,0}
+          {0.75,-0.37,0}
+          {0.75,0.37,0}
+          {-0.75,0.37,0}
+        </vertex>
+      </face>
+    </PrismaticPart>
+    <Pioneer3ATSim name="Pioneer3AT" id="13">
+      <position>{8,1.1,0}</position>
+      <!--yaw = pi/2: mira hacia +y, hacia el interior del supermercado-->
+      <orientation>{0,0,1.5708}</orientation>
+    </Pioneer3ATSim>
+    <!--Sensor Sick LMS100Sim: sintaxis documentada en EjemploUso.pdf pagina 4; posicion relativa a Pioneer3AT.-->
+    <LMS100Sim name="LMS100" linkTo="$Pioneer3AT$">
+      <position>{0.1,0,0.4}</position>
+      <colour r="0" g="1" b="0" />
+    </LMS100Sim>
+    <!--FINAL: 8 estanterias x 4 balizas = 32; 2 cajas x 4 balizas = 8; TOTAL = 40.-->
+    <!--LandMark: desplazadas 1 cm en x y en y hacia fuera de la esquina de su prisma.-->
+    <!--LandMark: balizas de localizacion para LMS100. Las 40 posiciones 3D de los LandMark se alinean con el plano del laser, z=0.4 m. Sin geometria visual asociada: solo el LandMark.-->
+    <LandMark name="B001" mark_id="1">
+      <position>{2.640,11.290,0.4}</position>
+    </LandMark>
+    <LandMark name="B002" mark_id="2">
+      <position>{3.400,11.290,0.4}</position>
+    </LandMark>
+    <LandMark name="B003" mark_id="3">
+      <position>{2.640,14.660,0.4}</position>
+    </LandMark>
+    <LandMark name="B004" mark_id="4">
+      <position>{3.400,14.660,0.4}</position>
+    </LandMark>
+    <LandMark name="B005" mark_id="5">
+      <position>{5.890,11.290,0.4}</position>
+    </LandMark>
+    <LandMark name="B006" mark_id="6">
+      <position>{6.650,11.290,0.4}</position>
+    </LandMark>
+    <LandMark name="B007" mark_id="7">
+      <position>{5.890,14.660,0.4}</position>
+    </LandMark>
+    <LandMark name="B008" mark_id="8">
+      <position>{6.650,14.660,0.4}</position>
+    </LandMark>
+    <LandMark name="B009" mark_id="9">
+      <position>{9.140,11.290,0.4}</position>
+    </LandMark>
+    <LandMark name="B010" mark_id="10">
+      <position>{9.900,11.290,0.4}</position>
+    </LandMark>
+    <LandMark name="B011" mark_id="11">
+      <position>{9.140,14.660,0.4}</position>
+    </LandMark>
+    <LandMark name="B012" mark_id="12">
+      <position>{9.900,14.660,0.4}</position>
+    </LandMark>
+    <LandMark name="B013" mark_id="13">
+      <position>{12.390,11.290,0.4}</position>
+    </LandMark>
+    <LandMark name="B014" mark_id="14">
+      <position>{13.150,11.290,0.4}</position>
+    </LandMark>
+    <LandMark name="B015" mark_id="15">
+      <position>{12.390,14.660,0.4}</position>
+    </LandMark>
+    <LandMark name="B016" mark_id="16">
+      <position>{13.150,14.660,0.4}</position>
+    </LandMark>
+    <LandMark name="B017" mark_id="17">
+      <position>{2.640,6.190,0.4}</position>
+    </LandMark>
+    <LandMark name="B018" mark_id="18">
+      <position>{3.400,6.190,0.4}</position>
+    </LandMark>
+    <LandMark name="B019" mark_id="19">
+      <position>{2.640,9.560,0.4}</position>
+    </LandMark>
+    <LandMark name="B020" mark_id="20">
+      <position>{3.400,9.560,0.4}</position>
+    </LandMark>
+    <LandMark name="B021" mark_id="21">
+      <position>{5.890,6.190,0.4}</position>
+    </LandMark>
+    <LandMark name="B022" mark_id="22">
+      <position>{6.650,6.190,0.4}</position>
+    </LandMark>
+    <LandMark name="B023" mark_id="23">
+      <position>{5.890,9.560,0.4}</position>
+    </LandMark>
+    <LandMark name="B024" mark_id="24">
+      <position>{6.650,9.560,0.4}</position>
+    </LandMark>
+    <LandMark name="B025" mark_id="25">
+      <position>{9.140,6.190,0.4}</position>
+    </LandMark>
+    <LandMark name="B026" mark_id="26">
+      <position>{9.900,6.190,0.4}</position>
+    </LandMark>
+    <LandMark name="B027" mark_id="27">
+      <position>{9.140,9.560,0.4}</position>
+    </LandMark>
+    <LandMark name="B028" mark_id="28">
+      <position>{9.900,9.560,0.4}</position>
+    </LandMark>
+    <LandMark name="B029" mark_id="29">
+      <position>{12.390,6.190,0.4}</position>
+    </LandMark>
+    <LandMark name="B030" mark_id="30">
+      <position>{13.150,6.190,0.4}</position>
+    </LandMark>
+    <LandMark name="B031" mark_id="31">
+      <position>{12.390,9.560,0.4}</position>
+    </LandMark>
+    <LandMark name="B032" mark_id="32">
+      <position>{13.150,9.560,0.4}</position>
+    </LandMark>
+    <LandMark name="B033" mark_id="33">
+      <position>{3.840,2.440,0.4}</position>
+    </LandMark>
+    <LandMark name="B034" mark_id="34">
+      <position>{5.360,2.440,0.4}</position>
+    </LandMark>
+    <LandMark name="B035" mark_id="35">
+      <position>{3.840,3.200,0.4}</position>
+    </LandMark>
+    <LandMark name="B036" mark_id="36">
+      <position>{5.360,3.200,0.4}</position>
+    </LandMark>
+    <LandMark name="B037" mark_id="37">
+      <position>{10.640,2.440,0.4}</position>
+    </LandMark>
+    <LandMark name="B038" mark_id="38">
+      <position>{12.160,2.440,0.4}</position>
+    </LandMark>
+    <LandMark name="B039" mark_id="39">
+      <position>{10.640,3.200,0.4}</position>
+    </LandMark>
+    <LandMark name="B040" mark_id="40">
+      <position>{12.160,3.200,0.4}</position>
+    </LandMark>
+    <!--BALIZAS DE PARED (B041-B059): 1 cm hacia dentro de la pared, z=0.4 m. Pared sur sin balizas en la entrada (x=7..9).-->
+    <LandMark name="B041" mark_id="41">
+      <position>{0.010,2.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B042" mark_id="42">
+      <position>{0.010,5.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B043" mark_id="43">
+      <position>{0.010,8.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B044" mark_id="44">
+      <position>{0.010,11.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B045" mark_id="45">
+      <position>{0.010,14.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B046" mark_id="46">
+      <position>{15.990,2.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B047" mark_id="47">
+      <position>{15.990,5.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B048" mark_id="48">
+      <position>{15.990,8.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B049" mark_id="49">
+      <position>{15.990,11.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B050" mark_id="50">
+      <position>{15.990,14.000,0.4}</position>
+    </LandMark>
+    <LandMark name="B051" mark_id="51">
+      <position>{2.000,16.990,0.4}</position>
+    </LandMark>
+    <LandMark name="B052" mark_id="52">
+      <position>{5.000,16.990,0.4}</position>
+    </LandMark>
+    <LandMark name="B053" mark_id="53">
+      <position>{8.000,16.990,0.4}</position>
+    </LandMark>
+    <LandMark name="B054" mark_id="54">
+      <position>{11.000,16.990,0.4}</position>
+    </LandMark>
+    <LandMark name="B055" mark_id="55">
+      <position>{14.000,16.990,0.4}</position>
+    </LandMark>
+    <LandMark name="B056" mark_id="56">
+      <position>{2.000,0.010,0.4}</position>
+    </LandMark>
+    <LandMark name="B057" mark_id="57">
+      <position>{5.000,0.010,0.4}</position>
+    </LandMark>
+    <LandMark name="B058" mark_id="58">
+      <position>{11.000,0.010,0.4}</position>
+    </LandMark>
+    <LandMark name="B059" mark_id="59">
+      <position>{14.000,0.010,0.4}</position>
+    </LandMark>
+  </World>
+</root>
